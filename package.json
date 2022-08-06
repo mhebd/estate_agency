@@ -1,0 +1,27 @@
+{
+  "name": "estate_agency",
+  "version": "2.0.4",
+  "description": "Estate agency is a business web application.",
+  "main": "app.js",
+  "author": "Md. Mehedi Hassan",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mhebd/estate_agency"
+  },
+  "homepage": "https://github.com/mhebd/estate_agency",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "gravatar": "^1.8.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.4",
+    "morgan": "^1.10.0"
+  }
+}
