@@ -22,8 +22,6 @@ const testimonialSchema = mongoose.Schema({
 }, 
 {
 	versionKey: false,
-	toJSON: { vertuals: true },
-	toObject: { vertuals: true }
 })
 
 const Testimonial = mongoose.model('Testimonial', testimonialSchema);

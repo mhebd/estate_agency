@@ -18,8 +18,6 @@ const serviceSchema = mongoose.Schema({
 },
 {
 	versionKey: false,
-	toJSON: { vertuals: true },
-	toObject: { vertuals: true }
 })
 
 const Service = mongoose.model('Service', serviceSchema);

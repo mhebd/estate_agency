@@ -13,7 +13,7 @@ exports.findAll = findAll(Property, null, '-created');
  * ~/api/v1/property/:id
  * ~Public
 */
-exports.findOne = findOne(Property);
+exports.findOne = findOne(Property, {path: 'agent', select: 'name email'});
 
 
 /**
@@ -21,7 +21,7 @@ exports.findOne = findOne(Property);
  * ~/api/v1/property
  * ~Limited
 */
-exports.createOne = createOne(Property);
+exports.createOne = createOne(Property, {destination: './uploads/properties'});
 
 
 /**

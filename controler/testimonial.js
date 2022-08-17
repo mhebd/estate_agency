@@ -13,7 +13,7 @@ exports.findAll = findAll(Testimonial, null, '-created');
  * ~/api/v1/testimonial
  * ~Limited
 */
-exports.createOne = createOne(Testimonial);
+exports.createOne = createOne(Testimonial, {destination: './uploads/testimonials'});
 
 
 /**
@@ -21,7 +21,7 @@ exports.createOne = createOne(Testimonial);
  * ~/api/v1/testimonial/:id
  * ~Limited
 */
-exports.updateOne = updateOne(Testimonial);
+exports.updateOne = updateOne(Testimonial, {destination: './uploads/testimonials'});
 
 
 /**

@@ -54,11 +54,16 @@ const Result = require('./result');
 
  exports.createOne = (Model, options = {}) => asyncHdl(async (req, res, next) => {
   const file = req?.file;
+  // const files = req?.files;
   const {destination} = options;
 
   if(file && destination) {
     req.body[file.fieldname] = `${destination}/${file.filename}`;
   }
+
+  // if(files && destination) {
+  //   req.body.images = req?.files?.images.map(item => `${destination}/${item.filename}`);
+  // }
 
  	const data = await Model.create(req.body);
 

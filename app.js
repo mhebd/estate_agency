@@ -29,7 +29,7 @@ database();
 // Route End Point
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/agent', agentRouter);
-app.use('/api/vi/news', newsRouter);
+app.use('/api/v1/news', newsRouter);
 app.use('/api/v1/property', propertyRouter);
 app.use('/api/v1/service', serviceRouter);
 app.use('/api/v1/testimonial', testimonialRouter)

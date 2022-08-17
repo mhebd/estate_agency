@@ -13,9 +13,9 @@ const {
 const router = express.Router();
 
 router.route('/').get(private, getUser).put(private, updateUser).delete(private, deleteUser);
-router.route('/all').get(private, limited, getAllUser);
+router.route('/all').get(private, limited('admin'), getAllUser);
 router.route('/signup').post(createUser);
 router.route('/login').post(loginUser);
-router.route('/:id').get(private, getUserById).delete(private, limited, deleteUserByAdmin);
+router.route('/:id').get(private, getUserById).delete(private, limited('admin'), deleteUserByAdmin);
 
 module.exports = router;

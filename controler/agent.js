@@ -21,7 +21,7 @@ exports.findOne = findOne(Agent);
  * ~/api/v1/agent
  * ~Limited
 */
-exports.createOne = createOne(Agent);
+exports.createOne = createOne(Agent, {destination: './uploads/agents'});
 
 
 /**
@@ -29,7 +29,7 @@ exports.createOne = createOne(Agent);
  * ~/api/v1/agent/:id
  * ~Limited
 */
-exports.updateOne = updateOne(Agent);
+exports.updateOne = updateOne(Agent, {destination: './uploads/agents'});
 
 
 /**

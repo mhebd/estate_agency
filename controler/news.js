@@ -21,7 +21,7 @@ exports.findOne = findOne(News);
  * ~/api/v1/news
  * ~Limited
 */
-exports.createOne = createOne(News);
+exports.createOne = createOne(News, {destination: './uploads/news'});
 
 
 /**
@@ -29,7 +29,7 @@ exports.createOne = createOne(News);
  * ~/api/v1/news/:id
  * ~Limited
 */
-exports.updateOne = updateOne(News);
+exports.updateOne = updateOne(News, {destination: './uploads/news'});
 
 
 /**
