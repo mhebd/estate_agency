@@ -9,7 +9,7 @@ const serviceSchema = mongoose.Schema({
 	details: {
 		type: String,
 		required: [true, 'Service details is a required field.'],
-		maxLength: [200, 'Service details must be under 200 charecter.']
+		maxLength: [300, 'Service details must be under 200 charecter.']
 	},
 	created: {
 		type: Date,

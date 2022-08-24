@@ -1,10 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
-import post1 from '../../../assets/image/proparty-img/post-1.jpg';
-import post2 from '../../../assets/image/proparty-img/post-2.jpg';
-import post3 from '../../../assets/image/proparty-img/post-3.jpg';
-import post4 from '../../../assets/image/proparty-img/post-4.jpg';
+import BlogCard from '../../common/reusable/BlogCard';
 
 function HomeNewsSlider() {
   const settings = {
@@ -15,6 +13,22 @@ function HomeNewsSlider() {
     slidesToScroll: 3,
     autoplay: true,
   };
+  const [news, setNews] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    (async () => {
+      const res = await axios(`http://localhost:5000/api/v1/news`);
+      setNews(res.data.result.data);
+      setLoading(false);
+    })();
+  }, []);
+
+  if (loading) {
+    return <div>loading...</div>;
+  }
+
   return (
     <div className="section news-carousel-wrapper">
       <div className="container">
@@ -28,72 +42,9 @@ function HomeNewsSlider() {
         </div>
         <div className="slider-wrapper">
           {/* <!-- carousel start --> */}
-          <Slider {...settings} className="news-carousel">
-            <div className="item px-2">
-              <div className="single-news">
-                <div className="card">
-                  <img src={post1} alt="" className="card-img" />
-
-                  <div className="news-caption">
-                    <span className="news-tittle">house</span>
-                    <h2 className="heading">
-                      <a href="/">house is comming very soon</a>
-                    </h2>
-                    <p className="date">18 sep. 2018</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* {{<!-- single-news end -->}} */}
-            <div className="item">
-              <div className="single-news">
-                <div className="card">
-                  <img src={post2} alt="" className="card-img" />
-
-                  <div className="news-caption">
-                    <span className="news-tittle">house</span>
-                    <h2 className="heading">
-                      <a href="/">house is comming very soon</a>
-                    </h2>
-                    <p className="date">18 sep. 2018</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* {{<!-- single-news end -->}} */}
-            <div className="item">
-              <div className="single-news">
-                <div className="card">
-                  <img src={post3} alt="" className="card-img" />
-
-                  <div className="news-caption">
-                    <span className="news-tittle">house</span>
-                    <h2 className="heading">
-                      <a href="/">house is comming very soon</a>
-                    </h2>
-                    <p className="date">18 sep. 2018</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* {{<!-- single-news end -->}} */}
-            <div className="item">
-              <div className="single-news">
-                <div className="card">
-                  <img src={post4} alt="" className="card-img" />
-
-                  <div className="card-img-overlay news-caption">
-                    <span className="news-tittle">house</span>
-                    <h2 className="heading">
-                      <a href="/">house is comming very soon</a>
-                    </h2>
-                    <p className="date">18 sep. 2018</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* {{<!-- single-news end -->}} */}
-          </Slider>
+          <div className="news-carousel">
+            <Slider {...settings}>{news && news.map((blog) => <BlogCard blog={blog} />)}</Slider>
+          </div>
           {/* {{<!-- carousel end -->}} */}
         </div>
       </div>

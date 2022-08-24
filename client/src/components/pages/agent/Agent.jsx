@@ -1,7 +1,24 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import '../../../assets/css/agent-grid.css';
+import AgentCard from '../../common/reusable/AgentCard';
 
 function Agent() {
+  const [agents, setAgents] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    (async () => {
+      const res = await axios(`http://localhost:5000/api/v1/agent`);
+      setAgents(res.data.result.data);
+      setLoading(false);
+    })();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <div className="section agents agent-grid">
@@ -29,56 +46,7 @@ function Agent() {
 
           <div className="agents-wrapper">
             <div className="row">
-              <div className="col-md-4 mb-4">
-                <div className="single-agent card">
-                  <img src="../image/proparty-img/agent-5.jpg" alt="" className="card-img" />
-                  <div className="agent-overlay card-img-overlay">
-                    <div className="agent-info">
-                      <h2 className="agent-name">
-                        <a href="/">Margaret Sotillo Escala</a>
-                      </h2>
-                      <p className="agent-prg">
-                        Sed porttitor lectus nibh, Cras ultricies ligula sed magna dictum porta two.{' '}
-                      </p>
-
-                      <p className="agent-phone">
-                        <strong>Phone:</strong> +54 356 945234
-                      </p>
-                      <p className="agent-email">
-                        <strong>Email:</strong> agents@example.com
-                      </p>
-
-                      <ul className="nav  social-nav">
-                        <li className="nav-item">
-                          <a href="/" className="nav-link">
-                            <i className="fab fa-facebook-f" />
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <a href="/" className="nav-link">
-                            <i className="fab fa-twitter" />
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <a href="/" className="nav-link">
-                            <i className="fab fa-instagram" />
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <a href="/" className="nav-link">
-                            <i className="fab fa-pinterest-p" />
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <a href="/" className="nav-link">
-                            <i className="fab fa-linkedin-in" />
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {agents && agents.map((agent) => <AgentCard agent={agent} />)}
             </div>
           </div>
         </div>

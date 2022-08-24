@@ -1,6 +1,27 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 function HomeService() {
+  const [services, setServices] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      setLoading(true);
+      try {
+        const res = await axios(`http://localhost:5000/api/v1/service`);
+        setServices(res.data?.result?.data);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  if (loading) {
+    return <div className="">Loading...</div>;
+  }
+
   return (
     <div className="section services-wrapper">
       <div className="container">
@@ -10,75 +31,23 @@ function HomeService() {
 
         <div className="services">
           <div className="row">
-            <div className="col-lg-4 mb-4">
-              <div className="service wow zoomIn">
-                <div className="service-header d-flex mb-4">
-                  <div className="service-icon">
-                    <i className="fas fa-gamepad" />
-                  </div>
-                  <div className="s-heading align-self-center">
-                    <h2 className="">Lifestyle</h2>
-                  </div>
-                </div>
+            {services &&
+              services.map((service) => (
+                <div className="col-lg-4 mb-4" key={Math.random()}>
+                  <div className="service wow zoomIn">
+                    <div className="service-header d-flex mb-4">
+                      <div className="service-icon">
+                        <i className="fas fa-dollar-sign" />
+                      </div>
+                      <div className="s-heading align-self-center">
+                        <h2 className="">{service?.title}</h2>
+                      </div>
+                    </div>
 
-                <p className="service-prg lead">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint cupiditate dolor
-                  vitae consequuntur accusantium impedit enim eos dolores repudiandae? Dolore
-                  voluptatum commodi mollitia vel eos assumenda reprehenderit, error ipsa porro!
-                </p>
-
-                <a href="/" className="service-link">
-                  Read More <i className="fas fa-angle-right" />
-                </a>
-              </div>
-            </div>
-            {/* <!-- single service end --> */}
-            <div className="col-lg-4 mb-4">
-              <div className="service wow zoomIn">
-                <div className="service-header d-flex mb-4">
-                  <div className="service-icon">
-                    <i className="fas fa-dollar-sign" />
-                  </div>
-                  <div className="s-heading align-self-center">
-                    <h2 className="">Loans</h2>
+                    <p className="service-prg lead">{service?.details}</p>
                   </div>
                 </div>
-
-                <p className="service-prg lead">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint cupiditate dolor
-                  vitae consequuntur accusantium impedit enim eos dolores repudiandae? Dolore
-                  voluptatum commodi mollitia vel eos assumenda reprehenderit, error ipsa porro!
-                </p>
-
-                <a href="/" className="service-link">
-                  Read More <i className="fas fa-angle-right" />
-                </a>
-              </div>
-            </div>
-            {/* <!-- single service end --> */}
-            <div className="col-lg-4 mb-4">
-              <div className="service wow zoomIn">
-                <div className="service-header d-flex mb-4">
-                  <div className="service-icon">
-                    <i className="fas fa-home" />
-                  </div>
-                  <div className="s-heading align-self-center">
-                    <h2 className="">Sell</h2>
-                  </div>
-                </div>
-
-                <p className="service-prg lead">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint cupiditate dolor
-                  vitae consequuntur accusantium impedit enim eos dolores repudiandae? Dolore
-                  voluptatum commodi mollitia vel eos assumenda reprehenderit, error ipsa porro!
-                </p>
-
-                <a href="/" className="service-link">
-                  Read More <i className="fas fa-angle-right" />
-                </a>
-              </div>
-            </div>
-            {/* <!-- single service end --> */}
+              ))}
           </div>
         </div>
       </div>

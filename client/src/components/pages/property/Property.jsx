@@ -1,10 +1,27 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import '../../../assets/css/property-grid.css';
+import PropertyCard from '../../common/reusable/PropertyCard';
 
 function Property() {
+  const [properties, setProperties] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    (async () => {
+      const res = await axios(`http://localhost:5000/api/v1/property`);
+      setProperties(res.data.result.data);
+      setLoading(false);
+    })();
+  }, []);
+
+  if (loading) {
+    return <div>loading...</div>;
+  }
+
   return (
     <>
-      {' '}
       <div className="property-grid-section">
         <div className="container">
           <div className="property-grid-header">
@@ -41,48 +58,12 @@ function Property() {
 
           <div className="grid-properties">
             <div className="row">
-              <div className="col-md-4 mb-4">
-                <div className="single-property">
-                  <div className="card">
-                    <img src="../image/proparty-img/property-9.jpg" alt="" className="card-img" />
-
-                    <div className="property-caption">
-                      <div className="information">
-                        <h2 className="address">206 Mount Olive Road Two</h2>
-                        <h4 className="rent">RENT | $ 12,000</h4>
-                        <a href="/" className="link">
-                          Click here to view <i className="fas fa-angle-right ml-3" />
-                        </a>
-                      </div>
-
-                      <div className="extra-info">
-                        <div className="info-table">
-                          <table className="table bg-success">
-                            <thead>
-                              <tr>
-                                <th>Area</th>
-                                <th>Beds</th>
-                                <th>Baths</th>
-                                <th>Garages</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  340m<sup>2</sup>
-                                </td>
-                                <td>2</td>
-                                <td>4</td>
-                                <td>1</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
+              {properties &&
+                properties?.map((property) => (
+                  <div className="col-md-4 mb-4">
+                    <PropertyCard property={property} />
                   </div>
-                </div>
-              </div>
+                ))}
             </div>
           </div>
         </div>

@@ -12,7 +12,7 @@ const propertySchema = mongoose.Schema({
 	description: {
 		type: String,
 		required: [true, 'Property description is a required field.'],
-		maxLength: [300, 'Property description must be under 300 charecter.'],
+		maxLength: [500, 'Property description must be under 500 charecter.'],
 	},
 	price: {
 		type: Number,

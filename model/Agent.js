@@ -9,7 +9,7 @@ const agentModel = mongoose.Schema({
 	biodata: {
 		type: String,
 		required: [true, 'Agent biodata is a required field.'],
-		maxLength: [200, 'Agent biodata must be under 200 charecter long.'],
+		maxLength: [300, 'Agent biodata must be under 200 charecter long.'],
 	},
 	avatar: {
 		type: String,

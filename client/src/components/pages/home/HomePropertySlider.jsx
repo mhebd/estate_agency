@@ -1,6 +1,34 @@
-import React from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import Slider from 'react-slick';
+import PropertyCard from '../../common/reusable/PropertyCard';
 
 function HomePropertySlider() {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    autoplay: true,
+  };
+  const [properties, setProperties] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    (async () => {
+      const res = await axios(`http://localhost:5000/api/v1/property`);
+      setProperties(res.data.result.data);
+      setLoading(false);
+    })();
+  }, []);
+
+  if (loading) {
+    return <div>loading...</div>;
+  }
+
   return (
     <div className="section property-carousel-wrapper">
       <div className="container">
@@ -14,183 +42,10 @@ function HomePropertySlider() {
         </div>
         <div className="slider-wrapper">
           {/* <!-- carousel start --> */}
-          <div className="owl-carousel owl-theme property-carousel">
-            <div className="item">
-              <div className="single-property">
-                <div className="card">
-                  <img src="../image/proparty-img/property-9.jpg" alt="" className="card-img" />
-
-                  <div className="property-caption">
-                    <div className="information">
-                      <h2 className="address">206 Mount Olive Road Two</h2>
-                      <h4 className="rent">RENT | $ 12,000</h4>
-                      <a href="/" className="link">
-                        Click here to view
-                        <i className="fas fa-angle-right ml-3" />
-                      </a>
-                    </div>
-
-                    <div className="extra-info">
-                      <div className="info-table">
-                        <table className="table bg-success">
-                          <thead>
-                            <tr>
-                              <th>Area</th>
-                              <th>Beds</th>
-                              <th>Baths</th>
-                              <th>Garages</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>
-                                340m<sup>2</sup>
-                              </td>
-                              <td>2</td>
-                              <td>4</td>
-                              <td>1</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* <!-- single item end --> */}
-            <div className="item">
-              <div className="single-property">
-                <div className="card">
-                  <img src="../image/proparty-img/property-6.jpg" alt="" className="card-img" />
-
-                  <div className="property-caption">
-                    <div className="information">
-                      <h2 className="address">206 Mount Olive Road Two</h2>
-                      <h4 className="rent">RENT | $ 12,000</h4>
-                      <a href="/" className="link">
-                        Click here to view
-                        <i className="fas fa-angle-right ml-3" />
-                      </a>
-                    </div>
-
-                    <div className="extra-info">
-                      <div className="info-table">
-                        <table className="table bg-success">
-                          <thead>
-                            <tr>
-                              <th>Area</th>
-                              <th>Beds</th>
-                              <th>Baths</th>
-                              <th>Garages</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>
-                                340m<sup>2</sup>
-                              </td>
-                              <td>2</td>
-                              <td>4</td>
-                              <td>1</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* <!-- single item end --> */}
-            <div className="item">
-              <div className="single-property">
-                <div className="card">
-                  <img src="../image/proparty-img/property-7.jpg" alt="" className="card-img" />
-
-                  <div className="property-caption">
-                    <div className="information">
-                      <h2 className="address">206 Mount Olive Road Two</h2>
-                      <h4 className="rent">RENT | $ 12,000</h4>
-                      <a href="/" className="link">
-                        Click here to view
-                        <i className="fas fa-angle-right ml-3" />
-                      </a>
-                    </div>
-
-                    <div className="extra-info">
-                      <div className="info-table">
-                        <table className="table bg-success">
-                          <thead>
-                            <tr>
-                              <th>Area</th>
-                              <th>Beds</th>
-                              <th>Baths</th>
-                              <th>Garages</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>
-                                340m<sup>2</sup>
-                              </td>
-                              <td>2</td>
-                              <td>4</td>
-                              <td>1</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* <!-- single item end --> */}
-            <div className="item">
-              <div className="single-property">
-                <div className="card">
-                  <img src="../image/proparty-img/property-8.jpg" alt="" className="card-img" />
-
-                  <div className="property-caption">
-                    <div className="information">
-                      <h2 className="address">206 Mount Olive Road Two</h2>
-                      <h4 className="rent">RENT | $ 12,000</h4>
-                      <a href="/" className="link">
-                        Click here to view
-                        <i className="fas fa-angle-right ml-3" />
-                      </a>
-                    </div>
-
-                    <div className="extra-info">
-                      <div className="info-table">
-                        <table className="table bg-success">
-                          <thead>
-                            <tr>
-                              <th>Area</th>
-                              <th>Beds</th>
-                              <th>Baths</th>
-                              <th>Garages</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>
-                                340m<sup>2</sup>
-                              </td>
-                              <td>2</td>
-                              <td>4</td>
-                              <td>1</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* <!-- single item end --> */}
+          <div className="property-carousel">
+            <Slider {...settings}>
+              {properties && properties?.map((property) => <PropertyCard property={property} />)}
+            </Slider>
           </div>
 
           {/* <!-- carousel end --> */}

@@ -15,7 +15,7 @@ function UserRoutes() {
   return (
     <Routes>
       <Route
-        path="/"
+        path=""
         element={
           <UserLayout>
             <Home />

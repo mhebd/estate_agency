@@ -1,7 +1,24 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import '../../../assets/css/news-grid.css';
+import BlogCard from '../../common/reusable/BlogCard';
 
 function Blog() {
+  const [news, setNews] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    (async () => {
+      const res = await axios(`http://localhost:5000/api/v1/news`);
+      setNews(res.data.result.data);
+      setLoading(false);
+    })();
+  }, []);
+
+  if (loading) {
+    return <div>loading...</div>;
+  }
   return (
     <>
       <div className="news-grid-section">
@@ -40,21 +57,12 @@ function Blog() {
 
           <div className="grid-news">
             <div className="row">
-              <div className="col-md-4 mb-4">
-                <div className="single-news">
-                  <div className="card">
-                    <img src="../image/proparty-img/post-5.jpg" alt="" className="card-img" />
-
-                    <div className="news-caption">
-                      <span className="news-tittle">house</span>
-                      <h2 className="heading">
-                        <a href="/">house is comming very soon</a>
-                      </h2>
-                      <p className="date">18 sep. 2018</p>
-                    </div>
+              {news &&
+                news.map((blog) => (
+                  <div className="col-md-4 mb-4" key={Math.random()}>
+                    <BlogCard blog={blog} />
                   </div>
-                </div>
-              </div>
+                ))}
             </div>
           </div>
         </div>

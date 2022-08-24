@@ -1,79 +1,3 @@
-import $ from 'jquery';
-
-// wow installation
-// new WOW().init();
-// wow instaletion end
-
-// owl carousel runner
-
-// property section
-$('.property-carousel').owlCarousel({
-  loop: true,
-  margin: 30,
-  nav: false,
-  responsive: {
-    0: {
-      items: 1,
-    },
-    750: {
-      items: 2,
-    },
-    1000: {
-      items: 3,
-    },
-  },
-});
-
-// news section
-$('.news-carousel').owlCarousel({
-  loop: true,
-  margin: 30,
-  nav: false,
-  responsive: {
-    0: {
-      items: 1,
-    },
-    600: {
-      items: 2,
-    },
-    1000: {
-      items: 3,
-    },
-  },
-});
-
-// property-single-carousel
-$('.ps-carousel').owlCarousel({
-  loop: true,
-  margin: 30,
-  nav: true,
-  responsive: {
-    0: {
-      items: 1,
-    },
-    600: {
-      items: 1,
-    },
-    1000: {
-      items: 1,
-    },
-  },
-});
-
-// testimonial section
-$('.testimonial').owlCarousel({
-  loop: false,
-  margin: 10,
-  nav: true,
-  responsive: {
-    0: {
-      items: 1,
-    },
-  },
-});
-
-// owl carousel runner end
-
 // on scroll add class code
 function Scroll() {
   const top = document.getElementById('top-nav');
@@ -120,10 +44,10 @@ window.addEventListener('scroll', Scroll);
 // on scroll add class code end
 
 // search box collapse
-$('.search-icon-btn').click(() => {
-  $('.search-box-wrapper').addClass('search-box');
-});
+// $('.search-icon-btn').click(() => {
+//   $('.search-box-wrapper').addClass('search-box');
+// });
 
-$('#btn-close').click(() => {
-  $('.search-box-wrapper').removeClass('search-box');
-});
+// $('#btn-close').click(() => {
+//   $('.search-box-wrapper').removeClass('search-box');
+// });
