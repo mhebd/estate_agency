@@ -2,16 +2,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
+import sliderSettings from '../../../utils/sliderSettings';
+import HomeSectionHeading from '../../common/reusable/HomeSectionHeading';
 
 function HomeTestimonials() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-  };
+  const settings = sliderSettings();
   const [testimonials, setTestimonials] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -31,9 +26,7 @@ function HomeTestimonials() {
   return (
     <div className="section testimonials">
       <div className="container">
-        <div className="section-header">
-          <h2 className="heading">Testimonials</h2>
-        </div>
+        <HomeSectionHeading title="Testimonials" />
 
         <div className="testimonials-slider">
           <div className="owl-carousel owl-theme testimonial">

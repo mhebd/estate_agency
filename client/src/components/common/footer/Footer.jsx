@@ -1,6 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 function Footer() {
+  useEffect(() => {
+    // on scroll add class code
+    function Scroll() {
+      const top = document.getElementById('top-nav');
+      const X = document.getElementById('gtt-btn');
+      const ypos = window.pageYOffset;
+      if (ypos > 350) {
+        top.classList.add('navbar-reduce');
+        X.classList.add('display');
+      } else {
+        top.classList.remove('navbar-reduce');
+        X.classList.remove('display');
+      }
+    }
+    window.addEventListener('scroll', Scroll);
+  }, []);
+
   return (
     <footer>
       <footer>

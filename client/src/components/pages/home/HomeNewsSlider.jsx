@@ -2,17 +2,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
+import homeSliderSettings from '../../../utils/sliderSettings';
 import BlogCard from '../../common/reusable/BlogCard';
+import HomeSectionHeading from '../../common/reusable/HomeSectionHeading';
 
 function HomeNewsSlider() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-    autoplay: true,
-  };
+  const settings = homeSliderSettings(3, 1, true);
   const [news, setNews] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -32,14 +27,7 @@ function HomeNewsSlider() {
   return (
     <div className="section news-carousel-wrapper">
       <div className="container">
-        <div className="section-header clearfix">
-          <h2 className="heading float-left">Latest News</h2>
-          <h3 className="more-news float-right">
-            <a href="news-grid.html" className="link">
-              All News <i className="fas fa-angle-right ml-3" />
-            </a>
-          </h3>
-        </div>
+        <HomeSectionHeading title="Latest News" link="/blog" />
         <div className="slider-wrapper">
           {/* <!-- carousel start --> */}
           <div className="news-carousel">

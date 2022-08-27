@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import '../../../assets/css/property-grid.css';
+import PageHeader from '../../common/reusable/PageHeader';
 import PropertyCard from '../../common/reusable/PropertyCard';
 
 function Property() {
@@ -24,37 +25,7 @@ function Property() {
     <>
       <div className="property-grid-section">
         <div className="container">
-          <div className="property-grid-header">
-            <div className="row">
-              <div className="col-lg-8 mb-4">
-                <div className="header">
-                  <h2 className="heading">Our Amazing Properties</h2>
-                  <p className="header-prg">Grid Properties</p>
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <div className="breadcrumb-wrapper justify-content-end">
-                  <ul className="breadcrumb justify-content-start justify-content-lg-end">
-                    <li className="breadcrumb-item">
-                      <a href="index.html">Home</a>
-                    </li>
-                    <li className="breadcrumb-item active">Properties Grid</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="select-proerty clearfix">
-            <div className="form-group float-right">
-              <select name="" id="" className="form-control">
-                <option value="">All</option>
-                <option value="">One</option>
-                <option value="">Two</option>
-                <option value="">Three</option>
-              </select>
-            </div>
-          </div>
+          <PageHeader heading="Our Amazing Properties" page="property" />
 
           <div className="grid-properties">
             <div className="row">

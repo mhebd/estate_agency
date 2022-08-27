@@ -1,3 +1,7 @@
+html {
+	scroll-behavior: smooth;
+}
+
 body {
 	font-family: 'Poppins', sans-serif;
 	font-size: 1rem;
@@ -118,6 +122,7 @@ a:hover {
 	border: none;
 	outline: none;
 	font-size: 2rem;
+	cursor: pointer;
 }
 @media (min-width: 768px) {
 	.search-box-wrapper {
@@ -417,6 +422,7 @@ a:hover {
 	background: #28a746e0;
 	opacity: 0;
 	transition: all ease 0.3s;
+	color: #fff;
 }
 
 .single-agent:hover .agent-overlay {
@@ -470,17 +476,7 @@ a:hover {
 		padding: 0.5rem;
 	}
 	.single-agent .agent-overlay .agent-name a {
-		font-size: 1rem;
 		font-weight: 600;
-	}
-
-	.single-agent .agent-overlay .agent-prg {
-		font-size: 0.9rem;
-	}
-	.single-agent .agent-overlay .agent-phone,
-	.single-agent .agent-overlay .agent-email,
-	.single-agent .agent-overlay .nav svg {
-		font-size: 0.8rem;
 	}
 }
 @media (max-width: 768px) {

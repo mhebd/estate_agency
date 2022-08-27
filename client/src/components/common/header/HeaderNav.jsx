@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-function HeaderNav() {
+function HeaderNav({ openSearchBox }) {
   return (
     <nav className="navbar navbar-expand-lg bg-light fixed-top top-navigation" id="top-nav">
       <div className="container">
@@ -57,22 +57,6 @@ function HeaderNav() {
                 Blog
               </NavLink>
             </li>
-            <li className="nav-item dropdown">
-              <Link to="/" className="nav-link dropdown-toggle" data-toggle="dropdown">
-                Pages
-              </Link>
-              <div className="dropdown-menu">
-                <NavLink to="/property/single" className="dropdown-item">
-                  Property Single
-                </NavLink>
-                <NavLink to="/blog/single" className="dropdown-item">
-                  Blog Single
-                </NavLink>
-                <NavLink to="/agent/single" className="dropdown-item">
-                  Agents Single
-                </NavLink>
-              </div>
-            </li>
             <li className="nav-item">
               <NavLink
                 to="/agent"
@@ -92,7 +76,11 @@ function HeaderNav() {
           </ul>
         </div>
 
-        <button type="button" className="search-icon-btn btn btn-success">
+        <button
+          type="button"
+          className="search-icon-btn btn btn-success"
+          onClick={(e) => openSearchBox(e)}
+        >
           <i className="fas fa-search" />
         </button>
       </div>

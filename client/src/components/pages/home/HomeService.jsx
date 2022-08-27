@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import HomeSectionHeading from '../../common/reusable/HomeSectionHeading';
 
 function HomeService() {
   const [services, setServices] = useState(null);
@@ -25,9 +26,7 @@ function HomeService() {
   return (
     <div className="section services-wrapper">
       <div className="container">
-        <div className="section-header">
-          <h2 className="heading">Our Services</h2>
-        </div>
+        <HomeSectionHeading title="Our Services" />
 
         <div className="services">
           <div className="row">

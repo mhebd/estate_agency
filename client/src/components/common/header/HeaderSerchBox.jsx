@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 
-function HeaderSerchBox() {
+function HeaderSerchBox({ showSearchBox, closeSearchBox }) {
   return (
-    <div className="search-box-wrapper">
+    <div className={`search-box-wrapper ${showSearchBox ? 'search-box' : ''}`}>
       <div className="serch-box-header section-header">
         <h2 className="heading">Search Property</h2>
         <div className="h-border-bottom" />
-        <button type="button" id="btn-close">
+        <button type="button" id="btn-close" onClick={(e) => closeSearchBox(e)}>
           <i className="fas fa-times" />
         </button>
       </div>

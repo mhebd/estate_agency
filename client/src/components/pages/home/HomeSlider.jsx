@@ -2,16 +2,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
+import sliderSettings from '../../../utils/sliderSettings';
 
 function HomeSlider() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-  };
+  const settings = sliderSettings();
   const [properties, setProperties] = useState(null);
   const [loading, setLoading] = useState(false);
 

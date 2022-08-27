@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import AgentCard from '../../common/reusable/AgentCard';
+import HomeSectionHeading from '../../common/reusable/HomeSectionHeading';
 
 function HomeAgentSec() {
   const [agents, setAgents] = useState(null);
@@ -22,14 +24,7 @@ function HomeAgentSec() {
   return (
     <div className="section agents">
       <div className="container">
-        <div className="section-header clearfix">
-          <h2 className="heading float-left">Best Agents</h2>
-          <h3 className="float-right">
-            <a href="agent-grid.html" className="link">
-              All Agents <i className="fas fa-angle-right ml-3" />
-            </a>
-          </h3>
-        </div>
+        <HomeSectionHeading title="Best Agents" link="/agent" />
 
         <div className="agents-wrapper">
           <div className="row">{agents && agents.map((agent) => <AgentCard agent={agent} />)}</div>

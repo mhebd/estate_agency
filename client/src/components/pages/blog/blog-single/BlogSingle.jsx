@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../../../../assets/css/news-single.css';
+import PageHeader from '../../../common/reusable/PageHeader';
 
 function BlogSingle() {
   const { blogId } = useParams();
@@ -26,26 +27,7 @@ function BlogSingle() {
     blog && (
       <div className="news-single-section">
         <div className="container">
-          <div className="news-single-header mb-5">
-            <div className="row">
-              <div className="col-lg-8 mb-4">
-                <div className="header">
-                  <h2 className="heading">{blog.title}</h2>
-                  <p className="header-prg">News Single.</p>
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <div className="breadcrumb-wrapper justify-content-end">
-                  <ul className="breadcrumb justify-content-start justify-content-lg-end">
-                    <li className="breadcrumb-item">
-                      <a href="index.html">Home</a>
-                    </li>
-                    <li className="breadcrumb-item active"> {blog.title}</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+          <PageHeader heading={blog.title} page="blog" title={blog.title} />
 
           <div className="news-big-img">
             <div className="row">

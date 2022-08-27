@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../../assets/css/about.css';
+import PageHeader from '../../common/reusable/PageHeader';
 import HomeAgentSec from '../home/HomeAgentSec';
 
 function About() {
@@ -7,31 +8,17 @@ function About() {
     <>
       <div className="about-section-wrapper">
         <div className="container">
-          <div className="about-header mb-5">
-            <div className="row">
-              <div className="col-lg-8 mb-4">
-                <div className="header">
-                  <h2 className="heading">We Do Great Design For Creative Folks</h2>
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <div className="breadcrumb-wrapper justify-content-end">
-                  <ul className="breadcrumb justify-content-start justify-content-lg-end">
-                    <li className="breadcrumb-item">
-                      <a href="index.html">Home</a>
-                    </li>
-                    <li className="breadcrumb-item active">About</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+          <PageHeader heading="We Do Great Design For Creative Folks" page="about" />
 
           <div className="about-img-wrapper">
             <div className="row justify-content-center">
               <div className="col-10">
                 <div className="about-img">
-                  <img src="../image/proparty-img/slide-about-1.jpg" alt="" className="img-fluid" />
+                  <img
+                    src="https://mhebd.github.io/myproject/image/proparty-img/slide-about-1.jpg"
+                    alt=""
+                    className="img-fluid"
+                  />
                 </div>
                 <div className="about-img-overlay">
                   <div className="estate-agency">
@@ -48,7 +35,11 @@ function About() {
             <div className="row">
               <div className="col-lg-5 mb-4">
                 <div className="author-img">
-                  <img src="../image/proparty-img/about-2.jpg" alt="" className="img-fluid" />
+                  <img
+                    src="https://mhebd.github.io/myproject/image/proparty-img/property-5.jpg"
+                    alt=""
+                    className="img-fluid"
+                  />
                 </div>
               </div>
               <div className="col-lg-2 d-none d-lg-block">

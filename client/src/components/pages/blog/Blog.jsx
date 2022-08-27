@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import '../../../assets/css/news-grid.css';
 import BlogCard from '../../common/reusable/BlogCard';
+import PageHeader from '../../common/reusable/PageHeader';
 
 function Blog() {
   const [news, setNews] = useState(null);
@@ -23,37 +24,7 @@ function Blog() {
     <>
       <div className="news-grid-section">
         <div className="container">
-          <div className="news-grid-header">
-            <div className="row">
-              <div className="col-lg-8 mb-4">
-                <div className="header">
-                  <h2 className="heading">Our Amazing Properties</h2>
-                  <p className="header-prg">News Grid</p>
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <div className="breadcrumb-wrapper justify-content-end">
-                  <ul className="breadcrumb justify-content-start justify-content-lg-end">
-                    <li className="breadcrumb-item">
-                      <a href="index.html">Home</a>
-                    </li>
-                    <li className="breadcrumb-item active">News Grid</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="select-proerty clearfix">
-            <div className="form-group float-right">
-              <select name="" id="" className="form-control">
-                <option value="">All</option>
-                <option value="">One</option>
-                <option value="">Two</option>
-                <option value="">Three</option>
-              </select>
-            </div>
-          </div>
+          <PageHeader heading="Our Latest News" page="blog" />
 
           <div className="grid-news">
             <div className="row">

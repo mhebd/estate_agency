@@ -4,16 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 import '../../../../assets/css/property-single.css';
+import sliderSettings from '../../../../utils/sliderSettings';
+import PageHeader from '../../../common/reusable/PageHeader';
 
 function PropertySingle() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-  };
+  const settings = sliderSettings();
 
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -35,29 +30,7 @@ function PropertySingle() {
     property && (
       <div className="property-single-section">
         <div className="container">
-          <div className="property-single-header">
-            <div className="row">
-              <div className="col-lg-6 mb-4">
-                <div className="header">
-                  <h2 className="heading">{property.name}</h2>
-                  <p className="header-prg">Chicago, IL 606543</p>
-                </div>
-              </div>
-              <div className="col-lg-6">
-                <div className="breadcrumb-wrapper justify-content-end">
-                  <ul className="breadcrumb justify-content-start justify-content-lg-end">
-                    <li className="breadcrumb-item">
-                      <a href="index.html">Home</a>
-                    </li>
-                    <li className="breadcrumb-item">
-                      <a href="property-gride.html">Properties</a>
-                    </li>
-                    <li className="breadcrumb-item active"> {property.name}</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+          <PageHeader heading={property.name} page="property" title={property.name} />
 
           <div className="property-single-carousel mb-5">
             <div className="carousel-wrapper">
@@ -66,17 +39,15 @@ function PropertySingle() {
                   {property?.images &&
                     property.images.map((img) => (
                       <div className="item">
-                        <img src={`http://localhost:5000/${img}`} alt="" className="img-fluid" />
+                        <img
+                          src={`http://localhost:5000/${img}`}
+                          alt=""
+                          className="img-fluid"
+                          style={{ width: '100%', maxHeight: '500px' }}
+                        />
                       </div>
                     ))}
                 </Slider>
-
-                <div className="item">
-                  <img src="../image/proparty-img/slide-1.jpg" alt="" className="img-fluid" />
-                </div>
-                <div className="item">
-                  <img src="../image/proparty-img/slide-3.jpg" alt="" className="img-fluid" />
-                </div>
               </div>
             </div>
           </div>

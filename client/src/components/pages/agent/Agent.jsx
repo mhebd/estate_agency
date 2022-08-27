@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import '../../../assets/css/agent-grid.css';
 import AgentCard from '../../common/reusable/AgentCard';
+import PageHeader from '../../common/reusable/PageHeader';
 
 function Agent() {
   const [agents, setAgents] = useState(null);
@@ -21,28 +22,9 @@ function Agent() {
   }
   return (
     <>
-      <div className="section agents agent-grid">
+      <div className="agents agent-grid">
         <div className="container">
-          <div className="agent-grid-header">
-            <div className="row">
-              <div className="col-lg-8 mb-4">
-                <div className="header">
-                  <h2 className="heading">Our Amazing Properties</h2>
-                  <p className="header-prg">Agent Grid</p>
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <div className="breadcrumb-wrapper justify-content-end">
-                  <ul className="breadcrumb justify-content-start justify-content-lg-end">
-                    <li className="breadcrumb-item">
-                      <a href="index.html">Home</a>
-                    </li>
-                    <li className="breadcrumb-item active">Agent Grid</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+          <PageHeader heading="Our Best Agents" page="agent" />
 
           <div className="agents-wrapper">
             <div className="row">
