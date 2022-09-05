@@ -17,7 +17,7 @@ function PropertySingle() {
   useEffect(() => {
     setLoading(true);
     (async () => {
-      const res = await axios(`http://localhost:5000/api/v1/property/${propertyId}`);
+      const res = await axios(`/api/v1/property/${propertyId}`);
       setProperty(res.data.result.data);
       setLoading(false);
     })();
@@ -40,7 +40,7 @@ function PropertySingle() {
                     property.images.map((img) => (
                       <div className="item">
                         <img
-                          src={`http://localhost:5000/${img}`}
+                          src={`../${img}`}
                           alt=""
                           className="img-fluid"
                           style={{ width: '100%', maxHeight: '500px' }}

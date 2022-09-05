@@ -10,7 +10,7 @@ function HomeService() {
     (async () => {
       setLoading(true);
       try {
-        const res = await axios(`http://localhost:5000/api/v1/service`);
+        const res = await axios(`/api/v1/service`);
         setServices(res.data?.result?.data);
         setLoading(false);
       } catch (error) {

@@ -1,4 +1,5 @@
 const Result = require('../util/result')
+const logger = require('../util/logger');
 
 module.exports = (err, req, res, next) => {
 	err ? console.log(err) : null;
@@ -18,6 +19,8 @@ module.exports = (err, req, res, next) => {
 		});
 		message = errmsg.join('& ');
 	}
+
+	logger.info(err);
 
 	res.status(status).json(new Result(false, message, {err}));
 	next();

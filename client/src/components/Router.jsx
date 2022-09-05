@@ -1,17 +1,17 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import About from '../pages/about/About';
-import Agent from '../pages/agent/Agent';
-import AgentSingle from '../pages/agent/agent-single/AgentSingle';
-import Blog from '../pages/blog/Blog';
-import BlogSingle from '../pages/blog/blog-single/BlogSingle';
-import Contact from '../pages/contact/Contact';
-import Home from '../pages/home/Home';
-import Property from '../pages/property/Property';
-import PropertySingle from '../pages/property/property-single/PropertySingle';
-import UserLayout from './layout/UserLayout';
+import UserLayout from './common/layout/UserLayout';
+import About from './pages/about/About';
+import Agent from './pages/agent/Agent';
+import AgentSingle from './pages/agent/agent-single/AgentSingle';
+import Blog from './pages/blog/Blog';
+import BlogSingle from './pages/blog/blog-single/BlogSingle';
+import Contact from './pages/contact/Contact';
+import Home from './pages/home/Home';
+import Property from './pages/property/Property';
+import PropertySingle from './pages/property/property-single/PropertySingle';
 
-function UserRoutes() {
+function Router() {
   return (
     <Routes>
       <Route
@@ -98,4 +98,4 @@ function UserRoutes() {
   );
 }
 
-export default UserRoutes;
+export default Router;

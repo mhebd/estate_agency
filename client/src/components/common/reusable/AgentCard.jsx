@@ -6,7 +6,7 @@ function AgentCard({ agent }) {
   return (
     <div className="col-md-4 mb-4" key={Math.random()}>
       <div className="single-agent card">
-        <img src={`http://localhost:5000/${agent.avatar}`} alt="" className="card-img" />
+        <img src={`${agent.avatar}`} alt="" className="card-img" />
         <div className="agent-overlay card-img-overlay">
           <div className="agent-info">
             <h2 className="agent-name">

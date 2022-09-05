@@ -12,7 +12,7 @@ function HomeSlider() {
   useEffect(() => {
     setLoading(true);
     (async () => {
-      const res = await axios(`http://localhost:5000/api/v1/property`);
+      const res = await axios(`/api/v1/property`);
       setProperties(res.data.result.data);
       setLoading(false);
     })();
@@ -32,11 +32,7 @@ function HomeSlider() {
               {properties &&
                 properties?.map((property) => (
                   <div className="carousel-item item" key={Math.random()}>
-                    <img
-                      src={`http://localhost:5000/${property.images[1]}`}
-                      alt=""
-                      className="img-fluid"
-                    />
+                    <img src={`${property.images[1]}`} alt="" className="img-fluid" />
 
                     <div className="carousel-caption">
                       <h4 className="address mb-5 animated zoomIn delay-3s">

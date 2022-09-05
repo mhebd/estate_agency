@@ -13,7 +13,7 @@ function BlogSingle() {
   useEffect(() => {
     setLoading(true);
     (async () => {
-      const res = await axios(`http://localhost:5000/api/v1/news/${blogId}`);
+      const res = await axios(`/api/v1/news/${blogId}`);
       setBlog(res.data.result.data);
       setLoading(false);
     })();
@@ -32,11 +32,7 @@ function BlogSingle() {
           <div className="news-big-img">
             <div className="row">
               <div className="col-12 mb-5">
-                <img
-                  src={`http://localhost:5000/${blog.coverImage}`}
-                  alt={blog.title}
-                  className="img-fluid mb-5"
-                />
+                <img src={`../${blog.coverImage}`} alt={blog.title} className="img-fluid mb-5" />
                 <div className="img-caption text-center mb-5">
                   <p>
                     <strong>Author:</strong>

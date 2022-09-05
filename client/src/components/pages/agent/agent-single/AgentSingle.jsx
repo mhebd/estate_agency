@@ -12,7 +12,7 @@ function AgentSingle() {
   useEffect(() => {
     setLoading(true);
     (async () => {
-      const res = await axios(`http://localhost:5000/api/v1/agent/${agentId}`);
+      const res = await axios(`/api/v1/agent/${agentId}`);
       setAgent(res.data.result.data);
       setLoading(false);
     })();
@@ -31,11 +31,7 @@ function AgentSingle() {
             <div className="row">
               <div className="col-lg-6">
                 <div className="agent-img">
-                  <img
-                    src={`http://localhost:5000/${agent.avatar}`}
-                    alt={agent.name}
-                    className="img-fluid"
-                  />
+                  <img src={`../${agent.avatar}`} alt={agent.name} className="img-fluid" />
                 </div>
               </div>
 

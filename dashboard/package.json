@@ -1,0 +1,39 @@
+{
+	"name": "dashboard",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview",
+		"lint": "yarn add -D prettier && yarn add -D @babel/eslint-parser && yarn add -D eslint && yarn add -D eslint-config-airbnb && yarn add -D eslint-plugin-import && yarn add -D eslint-plugin-jsx-a11y && yarn add -D eslint-plugin-react && yarn add -D eslint-plugin-react-hooks && yarn add -D eslint-config-prettier && yarn add -D eslint-plugin-prettier"
+	},
+	"dependencies": {
+		"axios": "^0.27.2",
+		"bootstrap": "^5.2.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-query": "^3.39.2",
+		"react-router-dom": "^6.3.0"
+	},
+	"devDependencies": {
+		"@babel/eslint-parser": "^7.18.9",
+		"@types/react": "^18.0.17",
+		"@types/react-dom": "^18.0.6",
+		"@vitejs/plugin-react": "^2.0.1",
+		"eslint": "^8.22.0",
+		"eslint-config-airbnb": "^19.0.4",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-config-react-app": "^7.0.1",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-jsx-a11y": "^6.6.1",
+		"eslint-plugin-prettier": "^4.2.1",
+		"eslint-plugin-react": "^7.30.1",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"prettier": "^2.7.1",
+		"vite": "^3.0.7"
+	},
+	"main": "index.js",
+	"license": "MIT"
+}
