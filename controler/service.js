@@ -1,5 +1,5 @@
 const Service = require('../model/Service');
-const { findAll, createOne, updateOne, deleteOne } = require('../util/crudOparetion');
+const { findAll, createOne, updateOne, deleteOne, findOne } = require('../util/crudOparetion');
 
 /**
  * @GET
@@ -15,6 +15,13 @@ exports.findAll = findAll(Service, null, '-created');
  * ~Limited
 */
 exports.createOne = createOne(Service);
+
+/**
+ * @PUT
+ * ~/api/v1/service/:id
+ * ~Limited
+*/
+exports.findOne = findOne(Service);
 
 
 /**

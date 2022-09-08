@@ -1,6 +1,6 @@
 const express = require('express');
 const { private, limited } = require('../middleware/auth');
-const { findAll, createOne, updateOne, deleteOne } = require('../controler/service');
+const { findAll, createOne, updateOne, deleteOne, findOne } = require('../controler/service');
 const router = express.Router();
 
 router.route('/')
@@ -8,6 +8,7 @@ router.route('/')
 	.post(private, limited('admin'), createOne);
 
 router.route('/:id')
+	.get(findOne)
 	.put(private, limited('admin'), updateOne)
 	.delete(private, limited('admin'), deleteOne);
 
