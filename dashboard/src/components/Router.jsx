@@ -4,13 +4,17 @@ import Layout from './common/Layout';
 import Agent from './pages/agent/Agent';
 import CreateAgent from './pages/agent/create-agent/CreateAgent';
 import Blog from './pages/blog/Blog';
+import CreateBlog from './pages/blog/create-blog/CreateBlog';
 import ForgetPassword from './pages/forgot-password/ForgotPassword';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
+import CreateProperty from './pages/property/create-property/CreateProperty';
 import Property from './pages/property/Property';
 import Register from './pages/register/Register';
 import CreateService from './pages/service/create-service/CreateService';
 import Service from './pages/service/Service';
+import CreateTestimonial from './pages/testimonial/create-testimonial/CreateTestimonial';
+import Testimonial from './pages/testimonial/Testimonial';
 
 function Router() {
   return (
@@ -61,10 +65,28 @@ function Router() {
       />
 
       <Route
+        path="property/create-property"
+        element={
+          <Layout>
+            <CreateProperty />
+          </Layout>
+        }
+      />
+
+      <Route
         path="blog"
         element={
           <Layout>
             <Blog />
+          </Layout>
+        }
+      />
+
+      <Route
+        path="blog/create-post"
+        element={
+          <Layout>
+            <CreateBlog />
           </Layout>
         }
       />
@@ -83,6 +105,24 @@ function Router() {
         element={
           <Layout>
             <CreateAgent />
+          </Layout>
+        }
+      />
+
+      <Route
+        path="testimonial"
+        element={
+          <Layout>
+            <Testimonial />
+          </Layout>
+        }
+      />
+
+      <Route
+        path="testimonial/create-testimonial"
+        element={
+          <Layout>
+            <CreateTestimonial />
           </Layout>
         }
       />

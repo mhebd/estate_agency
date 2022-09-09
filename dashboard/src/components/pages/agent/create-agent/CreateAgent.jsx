@@ -1,7 +1,10 @@
 /* eslint-disable eqeqeq */
-import axios from 'axios';
-import React, { useState } from 'react';
+import { queryString } from 'query-string';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import createData from '../../../../utility/createData';
+import fetchData from '../../../../utility/fetchData';
 import Button from '../../../reusable/Button';
 import CardLayout from '../../../reusable/CardLayout';
 import Input from '../../../reusable/form/Input';
@@ -10,30 +13,50 @@ import PageHeader from '../../../reusable/PageHeader';
 import AddSocialItem from './AddSocialItem';
 
 function CreateAgent() {
-  const [data, setData] = useState({
+  const dataObj = {
     name: '',
     email: '',
     biodata: '',
     phone: '',
     mobile: '',
     skype: '',
-  });
+  };
+  const [data, setData] = useState(dataObj);
   const [social, setSocial] = useState([]);
-  console.log(social);
+  const [avatar, setAvatar] = useState();
 
   const { name, email, biodata, phone, mobile, skype } = data;
+
+  const { ID } = queryString.parse(useLocation().search);
+
+  useEffect(() => {
+    if (ID) {
+      fetchData(`/api/v1/service/${ID}`, setData, null);
+    }
+  }, [ID]);
 
   const changeHandler = (e) => setData({ ...data, [e.target.name]: e.target.value });
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const res = await axios.post(`/api/v1/service`, data, {
-      headers: {
-        'Content-type': 'application/json',
-      },
-    });
 
-    console.log(res.data.result);
+    const agentData = {
+      name,
+      email,
+      biodata,
+      contact: {
+        phone,
+        mobile,
+        skype,
+      },
+      social,
+    };
+
+    const formData = new FormData();
+    formData.append('dataJson', JSON.stringify(agentData));
+    formData.append('avatar', avatar);
+
+    if (await createData('/api/v1/agent', formData)) setData(dataObj);
   };
 
   const addSocial = (sData) => {
@@ -51,9 +74,9 @@ function CreateAgent() {
   };
   return (
     <>
-      <PageHeader title="Add New Service" btnLink="/service" btnText="Go Back" icon="arrow-left" />
-      <CardLayout title="Create A New Service">
-        <form action="/" onSubmit={submitHandler} className="form">
+      <PageHeader title="Add New Agent" btnLink="/agent" btnText="Go Back" icon="arrow-left" />
+      <CardLayout title="Create A New Agent">
+        <form action="/" encType="multipart/formdata" onSubmit={submitHandler} className="form">
           <div className="row mb-3">
             <div className="col-md-6 mb-3">
               <Input
@@ -117,6 +140,18 @@ function CreateAgent() {
                 value={skype}
               />
             </div>
+          </div>
+
+          <div className="mb-3">
+            <Input
+              type="file"
+              id="avatar"
+              name="avatar"
+              placeholder=""
+              className=""
+              label="Agent Avatar"
+              changeHandler={(e) => setAvatar(e.target.files[0])}
+            />
           </div>
 
           <div className="pb-4">

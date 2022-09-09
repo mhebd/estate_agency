@@ -10,19 +10,19 @@ import Loading from '../../reusable/Loading';
 import PageHeader from '../../reusable/PageHeader';
 import TableLayout from '../../reusable/TableLayout';
 
-function Agent() {
-  const [agents, setAgents] = useState(null);
+function Testimonial() {
+  const [testimonials, setTestimonials] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
-    fetchData(`/api/v1/agent`, setAgents, setIsLoading);
+    fetchData(`/api/v1/testimonial`, setTestimonials, setIsLoading);
   }, []);
 
-  const removeAgent = async (id) => {
-    const res = await axios.delete(`/api/v1/agent/${id}`);
-    const deleteId = res.data.result.data._id;
-    setAgents(agents.filter((agent) => agent._id != deleteId));
+  const removeTestimonial = async (id) => {
+    const res = await axios.delete(`/api/v1/testimonial/${id}`);
+    const deletedId = res.data.result.data._id;
+    setTestimonials(testimonials.filter((testimonial) => testimonial._id != deletedId));
   };
 
   if (isLoading) {
@@ -30,19 +30,27 @@ function Agent() {
   }
   return (
     <>
-      <PageHeader title="Agent" btnLink="/agent/create-agent" btnText="Add New Agent" icon="plus" />
-      <TableLayout title="All Services" theadList={['#', 'Name', 'Publish Date']}>
+      <PageHeader
+        title="Testimonial"
+        btnLink="/testimonial/create-testimonial"
+        btnText="Add New Testimonial"
+        icon="plus"
+      />
+      <TableLayout title="All Testimonias" theadList={['#', 'Name', 'Publish Date']}>
         <tbody>
-          {agents &&
-            agents.map((agent, i) => (
+          {testimonials &&
+            testimonials.map((testimonial, i) => (
               <tr key={Math.random()}>
                 <td>{i + 1}</td>
-                <td>{agent.name}</td>
+                <td>{testimonial.name}</td>
                 <td>
-                  {formatDate(agent.created)} - {formatTime(agent.created)}
+                  {formatDate(testimonial.created)} - {formatTime(testimonial.created)}
                 </td>
                 <td>
-                  <Link to={`/agent/create-agent?ID=${agent._id}`} className="btn btn-success">
+                  <Link
+                    to={`/testimonial/update-testimonial?id=${testimonial._id}`}
+                    className="btn btn-success"
+                  >
                     Edit
                   </Link>
                 </td>
@@ -50,7 +58,7 @@ function Agent() {
                   <button
                     type="button"
                     className="btn btn-danger"
-                    onClick={() => removeAgent(agent._id)}
+                    onClick={() => removeTestimonial(testimonial._id)}
                   >
                     Delete
                   </button>
@@ -63,4 +71,4 @@ function Agent() {
   );
 }
 
-export default Agent;
+export default Testimonial;

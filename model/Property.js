@@ -1,55 +1,59 @@
 const mongoose = require('mongoose');
 
-const propertySchema = mongoose.Schema({
-	name: {
-		type: String,
-		required: [true, 'Property name is a required field.'],
+const propertySchema = mongoose.Schema(
+	{
+		name: {
+			type: String,
+			required: [true, 'Property name is a required field.'],
+		},
+		images: [
+			{
+				type: String,
+				required: [true, 'Property needs 1-5 images.'],
+			},
+		],
+		description: {
+			type: String,
+			required: [true, 'Property description is a required field.'],
+			maxLength: [500, 'Property description must be under 500 charecter.'],
+		},
+		price: {
+			type: Number,
+			required: [true, 'Property price is a required field.'],
+		},
+		amenities: [String],
+		video: String,
+		floorPlans: String,
+		map: {
+			lat: String,
+			long: String,
+		},
+		agent: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Agent',
+			required: [true, 'Property agent is a required field.'],
+		},
+		summary: {
+			propertyId: String,
+			location: String,
+			propertyType: String,
+			status: String,
+			area: Number,
+			beds: Number,
+			bath: Number,
+			garage: Number,
+		},
+		created: {
+			type: Date,
+			default: Date.now,
+		},
 	},
-	images: [{
-		type: String,
-		required: [true, 'Property needs 1-5 images.']
-	}],
-	description: {
-		type: String,
-		required: [true, 'Property description is a required field.'],
-		maxLength: [500, 'Property description must be under 500 charecter.'],
-	},
-	price: {
-		type: Number,
-		required: [true, 'Property price is a required field.'],
-	},
-	amenities: [String],
-	video: String,
-	floorPlans: String,
-	map: {
-		lat: String,
-		long: String,
-	},
-	agent: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Agent',
-		required: [true, 'Property agent is a required field.'],
-	},
-	summary: {
-		id: String,
-		location: String,
-		type: String,
-		status: String,
-		area: Number,
-		beds: Number,
-		bath: Number,
-		garage: Number,
-	},
-	created: {
-		type: Date,
-		default: Date.now
+	{
+		versionKey: false,
+		toJSON: { vertuals: true },
+		toObject: { vertuals: true },
 	}
-}, 
-{
-	versionKey: false,
-	toJSON: { vertuals: true },
-	toObject: { vertuals: true }
-})
+);
 
 const Property = mongoose.model('Property', propertySchema);
-module.exports = Property;	
+module.exports = Property;

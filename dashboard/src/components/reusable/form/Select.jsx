@@ -9,7 +9,9 @@ function Select({ value, className, name, changeHandler, children, id, label }) 
         </label>
       )}
       <select
-        className={`form-control ${className}`}
+        id={id}
+        name={name}
+        className={`form-select form-control ${className}`}
         value={value}
         onChange={(e) => changeHandler(e)}
       >

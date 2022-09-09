@@ -1520,3 +1520,15 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
 	width: 100%;
 }
+
+.form-control {
+	border-radius: 0;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	-ms-border-radius: 0;
+	-o-border-radius: 0;
+}
+
+.form-control:focus {
+	box-shadow: 0 0 0 black;
+}
