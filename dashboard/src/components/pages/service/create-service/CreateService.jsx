@@ -8,7 +8,9 @@ import Button from '../../../reusable/Button';
 import CardLayout from '../../../reusable/CardLayout';
 import Input from '../../../reusable/form/Input';
 import Textarea from '../../../reusable/form/Textarea';
+import Loading from '../../../reusable/Loading';
 import PageHeader from '../../../reusable/PageHeader';
+import Error from '../../not-found/Error';
 
 function CreateService() {
   const fields = {
@@ -16,12 +18,17 @@ function CreateService() {
     details: '',
   };
   const [data, setData] = useState(fields);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { id } = queryString.parse(useLocation().search);
 
   useEffect(() => {
     if (id) {
-      fetchData(`/api/v1/service/${id}`, setData, null);
+      setIsLoading(true);
+      (async () => {
+        setData(await fetchData(`/api/v1/service/${id}`));
+        setIsLoading(false);
+      })();
     }
   }, [id]);
 
@@ -30,19 +37,27 @@ function CreateService() {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (id) {
-      updateData(`/api/v1/service/${id}`, data);
-    } else {
-      createData('/api/v1/service', data);
-      setData(fields);
-    }
+      if (await updateData(`/api/v1/service/${id}`, data)) setData(fields);
+    } else if (await createData('/api/v1/service', data)) setData(fields);
   };
 
-  return (
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  return data === null ? (
+    <Error />
+  ) : (
     <>
-      <PageHeader title="Add New Service" btnLink="/service" btnText="Go Back" icon="arrow-left" />
+      <PageHeader
+        title={id ? 'Update  A Service' : 'Add New Service'}
+        btnLink="/service"
+        btnText="Go Back"
+        icon="arrow-left"
+      />
       <div className="row">
         <div className="col-md-8 mx-auto">
-          <CardLayout title="Create A New Service">
+          <CardLayout title={id ? 'Update A Service' : 'Create A New Service'}>
             <form action="/" onSubmit={submitHandler} className="form">
               <div className="mb-3">
                 <Input

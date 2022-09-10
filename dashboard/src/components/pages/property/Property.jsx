@@ -11,18 +11,22 @@ import PageHeader from '../../reusable/PageHeader';
 import TableLayout from '../../reusable/TableLayout';
 
 function Property() {
-  const [properties, setBlogs] = useState(null);
+  const [properties, setProperties] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
-    fetchData(`/api/v1/property`, setBlogs, setIsLoading);
+    (async () => {
+      const fetchProperties = await fetchData(`/api/v1/property`);
+      setProperties(fetchProperties);
+      setIsLoading(false);
+    })();
   }, []);
 
   const removeAgent = async (id) => {
     const res = await axios.delete(`/api/v1/property/${id}`);
     const deleteId = res.data.result.data._id;
-    setBlogs(properties.filter((blog) => blog._id != deleteId));
+    setProperties(properties.filter((blog) => blog._id != deleteId));
   };
 
   if (isLoading) {

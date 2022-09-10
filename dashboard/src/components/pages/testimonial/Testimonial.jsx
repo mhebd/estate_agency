@@ -16,7 +16,10 @@ function Testimonial() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetchData(`/api/v1/testimonial`, setTestimonials, setIsLoading);
+    (async () => {
+      setTestimonials(await fetchData(`/api/v1/testimonial`));
+      setIsLoading(false);
+    })();
   }, []);
 
   const removeTestimonial = async (id) => {

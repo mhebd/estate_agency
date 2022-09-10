@@ -1,9 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable eqeqeq */
+import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import createData from '../../../../utility/createData';
 import fetchData from '../../../../utility/fetchData';
+import updateData from '../../../../utility/updateData';
 import Button from '../../../reusable/Button';
 import CardLayout from '../../../reusable/CardLayout';
 import Input from '../../../reusable/form/Input';
@@ -11,6 +14,7 @@ import Select from '../../../reusable/form/Select';
 import Textarea from '../../../reusable/form/Textarea';
 import Loading from '../../../reusable/Loading';
 import PageHeader from '../../../reusable/PageHeader';
+import Error from '../../not-found/Error';
 
 function CreateProperty() {
   const dataObj = {
@@ -35,6 +39,8 @@ function CreateProperty() {
 
   const [data, setData] = useState(dataObj);
   const [images, setImages] = useState([]);
+  const [agents, setAgents] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     name,
@@ -55,6 +61,33 @@ function CreateProperty() {
     bath,
     garage,
   } = data;
+
+  useEffect(() => {
+    setIsLoading(true);
+    (async () => {
+      setAgents(await fetchData(`/api/v1/agent`));
+      setIsLoading(false);
+    })();
+  }, []);
+
+  const { id } = queryString.parse(useLocation().search);
+
+  useEffect(() => {
+    if (id) {
+      setIsLoading(true);
+      (async () => {
+        const fetchProp = await fetchData(`/api/v1/property/${id}`);
+        setData({
+          ...fetchProp,
+          ...fetchProp.map,
+          ...fetchProp.summary,
+          amenities: fetchProp.amenities.join(','),
+          agent: fetchProp.agent?._id,
+        });
+        setIsLoading(false);
+      })();
+    }
+  }, [id]);
 
   const changeHandler = (e) => setData({ ...data, [e.target.name]: e.target.value });
 
@@ -84,28 +117,24 @@ function CreateProperty() {
         garage: Number(garage),
       },
     };
-    console.log(propertyData);
 
     const formData = new FormData();
     formData.append('dataJson', JSON.stringify(propertyData));
-    images.forEach((img) => formData.append('images', img));
+    if (images) images.forEach((img) => formData.append('images', img));
     // formData.append('floorPlans', floorPlans);
 
-    if (await createData('/api/v1/property', formData)) setData(dataObj);
+    if (id) {
+      if (await updateData(`/api/v1/property/${id}`, formData)) setData(dataObj);
+    } else if (await createData('/api/v1/property', formData)) setData(dataObj);
   };
-
-  const [agents, setAgents] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    fetchData(`/api/v1/agent`, setAgents, setIsLoading);
-  }, []);
 
   if (isLoading) {
     return <Loading />;
   }
 
-  return (
+  return data === null ? (
+    <Error />
+  ) : (
     <>
       <PageHeader
         title="Add New Property"
@@ -113,7 +142,7 @@ function CreateProperty() {
         btnText="Go Back"
         icon="arrow-left"
       />
-      <CardLayout title="Create A New Property">
+      <CardLayout title={id ? 'Update A Property' : 'Create A New Property'}>
         <form action="/" encType="multipart/formdata" onSubmit={submitHandler} className="form">
           <div className="mb-3">
             <Input
@@ -162,7 +191,12 @@ function CreateProperty() {
                 changeHandler={changeHandler}
                 value={agent}
               >
-                {agents && agents.map((a) => <option value={`${a._id}`}>{a.name}</option>)}
+                {agents &&
+                  agents.map((a) => (
+                    <option key={Math.random()} value={`${a._id}`}>
+                      {a.name}
+                    </option>
+                  ))}
               </Select>
             </div>
           </div>
@@ -341,7 +375,7 @@ function CreateProperty() {
           </div>
 
           <div className="mb-3">
-            <Button type="submit">Create</Button>
+            <Button type="submit">{id ? 'Update' : 'Create'}</Button>
           </div>
         </form>
       </CardLayout>

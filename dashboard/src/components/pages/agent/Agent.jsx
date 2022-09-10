@@ -9,6 +9,7 @@ import formatTime from '../../../utility/formatTime';
 import Loading from '../../reusable/Loading';
 import PageHeader from '../../reusable/PageHeader';
 import TableLayout from '../../reusable/TableLayout';
+import Error from '../not-found/Error';
 
 function Agent() {
   const [agents, setAgents] = useState(null);
@@ -16,7 +17,11 @@ function Agent() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetchData(`/api/v1/agent`, setAgents, setIsLoading);
+    (async () => {
+      const fetchAgents = await fetchData(`/api/v1/agent`);
+      setAgents(fetchAgents);
+      setIsLoading(false);
+    })();
   }, []);
 
   const removeAgent = async (id) => {
@@ -31,34 +36,38 @@ function Agent() {
   return (
     <>
       <PageHeader title="Agent" btnLink="/agent/create-agent" btnText="Add New Agent" icon="plus" />
-      <TableLayout title="All Services" theadList={['#', 'Name', 'Publish Date']}>
-        <tbody>
-          {agents &&
-            agents.map((agent, i) => (
-              <tr key={Math.random()}>
-                <td>{i + 1}</td>
-                <td>{agent.name}</td>
-                <td>
-                  {formatDate(agent.created)} - {formatTime(agent.created)}
-                </td>
-                <td>
-                  <Link to={`/agent/create-agent?ID=${agent._id}`} className="btn btn-success">
-                    Edit
-                  </Link>
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={() => removeAgent(agent._id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </TableLayout>
+      {agents === null ? (
+        <Error />
+      ) : (
+        <TableLayout title="All Agents" theadList={['#', 'Name', 'Publish Date']}>
+          <tbody>
+            {agents &&
+              agents.map((agent, i) => (
+                <tr key={Math.random()}>
+                  <td>{i + 1}</td>
+                  <td>{agent.name}</td>
+                  <td>
+                    {formatDate(agent.created)} - {formatTime(agent.created)}
+                  </td>
+                  <td>
+                    <Link to={`/agent/create-agent?aid=${agent._id}`} className="btn btn-success">
+                      Edit
+                    </Link>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={() => removeAgent(agent._id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </TableLayout>
+      )}
     </>
   );
 }

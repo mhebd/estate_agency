@@ -16,7 +16,11 @@ function Blog() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetchData(`/api/v1/news`, setBlogs, setIsLoading);
+    (async () => {
+      const fetchBlogs = await fetchData(`/api/v1/news`);
+      setBlogs(fetchBlogs);
+      setIsLoading(false);
+    })();
   }, []);
 
   const removeAgent = async (id) => {

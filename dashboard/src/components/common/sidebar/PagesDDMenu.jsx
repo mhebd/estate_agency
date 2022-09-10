@@ -23,13 +23,13 @@ function PagesDropDownMenu() {
       >
         <div className="bg-white py-2 collapse-inner rounded">
           <h6 className="collapse-header">Login Screens:</h6>
-          <Link className="collapse-item" to="login.html">
+          <Link className="collapse-item" to="/login">
             Login
           </Link>
-          <a className="collapse-item" href="register.html">
+          <a className="collapse-item" href="/register">
             Register
           </a>
-          <a className="collapse-item" href="forgot-password.html">
+          <a className="collapse-item" href="/forgot-password">
             Forgot Password
           </a>
           <div className="collapse-divider" />

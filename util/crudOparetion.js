@@ -50,17 +50,15 @@ exports.findAll = (Model, populateOpt, sort) =>
 exports.createOne = (Model, options = {}) =>
   asyncHdl(async (req, res, next) => {
     const file = req?.file;
-    const files = req.files;
-    // const files = req?.files;
     const { destination } = options;
-    
-    if (req.body.dataJson) {
-        const bodyData = JSON.parse(req.body.dataJson);
-        console.log(bodyData);
-        req.body = { ...req.body, ...bodyData };
-      }
 
-    if (file && files && destination) {
+    if (req.body.dataJson) {
+      const bodyData = JSON.parse(req.body.dataJson);
+      console.log(bodyData);
+      req.body = { ...req.body, ...bodyData };
+    }
+
+    if (file && destination) {
       req.body[file.fieldname] = `${destination}/${file.filename}`;
     }
 
@@ -85,6 +83,12 @@ exports.updateOne = (Model, options = {}) =>
   asyncHdl(async (req, res, next) => {
     const file = req?.file;
     const { destination } = options;
+
+    if (req.body.dataJson) {
+      const bodyData = JSON.parse(req.body.dataJson);
+      console.log(bodyData);
+      req.body = { ...req.body, ...bodyData };
+    }
 
     if (file && destination) {
       req.body[file.fieldname] = `${destination}/${file.filename}`;

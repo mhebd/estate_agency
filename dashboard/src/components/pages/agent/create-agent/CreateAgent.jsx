@@ -1,15 +1,19 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable eqeqeq */
-import { queryString } from 'query-string';
+import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import createData from '../../../../utility/createData';
 import fetchData from '../../../../utility/fetchData';
+import updateData from '../../../../utility/updateData';
 import Button from '../../../reusable/Button';
 import CardLayout from '../../../reusable/CardLayout';
 import Input from '../../../reusable/form/Input';
 import Textarea from '../../../reusable/form/Textarea';
+import Loading from '../../../reusable/Loading';
 import PageHeader from '../../../reusable/PageHeader';
+import Error from '../../not-found/Error';
 import AddSocialItem from './AddSocialItem';
 
 function CreateAgent() {
@@ -24,16 +28,27 @@ function CreateAgent() {
   const [data, setData] = useState(dataObj);
   const [social, setSocial] = useState([]);
   const [avatar, setAvatar] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { name, email, biodata, phone, mobile, skype } = data;
 
-  const { ID } = queryString.parse(useLocation().search);
+  const { aid } = queryString.parse(useLocation().search);
 
   useEffect(() => {
-    if (ID) {
-      fetchData(`/api/v1/service/${ID}`, setData, null);
+    if (aid) {
+      setIsLoading(true);
+      (async () => {
+        const fetchAgent = await fetchData(`/api/v1/agent/${aid}`);
+        if (fetchAgent) {
+          setData({ ...fetchAgent, ...fetchAgent.contact });
+          setSocial(fetchAgent.social);
+        }
+        setIsLoading(false);
+      })();
     }
-  }, [ID]);
+  }, [aid]);
+
+  console.log(data, avatar);
 
   const changeHandler = (e) => setData({ ...data, [e.target.name]: e.target.value });
 
@@ -52,11 +67,15 @@ function CreateAgent() {
       social,
     };
 
+    console.log('agentData', agentData);
+
     const formData = new FormData();
     formData.append('dataJson', JSON.stringify(agentData));
-    formData.append('avatar', avatar);
+    if (avatar) formData.append('avatar', avatar);
 
-    if (await createData('/api/v1/agent', formData)) setData(dataObj);
+    if (aid) {
+      if (await updateData(`/api/v1/agent/${aid}`, formData)) setData(dataObj);
+    } else if (await createData('/api/v1/agent', formData)) setData(dataObj);
   };
 
   const addSocial = (sData) => {
@@ -64,18 +83,24 @@ function CreateAgent() {
     if (!sData.url) toast.warn('Social url is reauired');
     if (sData.icon && sData.url) {
       // eslint-disable-next-line no-param-reassign
-      sData.id = Math.random().toString(16);
       setSocial([...social, sData]);
     }
   };
 
-  const removeSocial = (id) => {
-    setSocial(social.filter((s) => s.id != id));
+  const removeSocial = (url) => {
+    setSocial(social.filter((s) => s.url != url));
   };
-  return (
+
+  if (aid && isLoading) {
+    return <Loading />;
+  }
+
+  return data === null ? (
+    <Error />
+  ) : (
     <>
       <PageHeader title="Add New Agent" btnLink="/agent" btnText="Go Back" icon="arrow-left" />
-      <CardLayout title="Create A New Agent">
+      <CardLayout title={aid ? 'Update A Agent' : 'Create New Agent'}>
         <form action="/" encType="multipart/formdata" onSubmit={submitHandler} className="form">
           <div className="row mb-3">
             <div className="col-md-6 mb-3">
@@ -146,8 +171,6 @@ function CreateAgent() {
             <Input
               type="file"
               id="avatar"
-              name="avatar"
-              placeholder=""
               className=""
               label="Agent Avatar"
               changeHandler={(e) => setAvatar(e.target.files[0])}
@@ -167,7 +190,7 @@ function CreateAgent() {
           <AddSocialItem addSocial={addSocial} removeSocial={removeSocial} social={social} />
           <hr />
           <div className="mb-3">
-            <Button type="submit">Create</Button>
+            <Button type="submit">{aid ? 'Update' : 'Create'}</Button>
           </div>
         </form>
       </CardLayout>

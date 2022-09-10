@@ -74,6 +74,15 @@ function Router() {
       />
 
       <Route
+        path="property/update-property"
+        element={
+          <Layout>
+            <CreateProperty />
+          </Layout>
+        }
+      />
+
+      <Route
         path="blog"
         element={
           <Layout>
@@ -84,6 +93,15 @@ function Router() {
 
       <Route
         path="blog/create-post"
+        element={
+          <Layout>
+            <CreateBlog />
+          </Layout>
+        }
+      />
+
+      <Route
+        path="blog/update-post"
         element={
           <Layout>
             <CreateBlog />
@@ -120,6 +138,15 @@ function Router() {
 
       <Route
         path="testimonial/create-testimonial"
+        element={
+          <Layout>
+            <CreateTestimonial />
+          </Layout>
+        }
+      />
+
+      <Route
+        path="testimonial/update-testimonial"
         element={
           <Layout>
             <CreateTestimonial />

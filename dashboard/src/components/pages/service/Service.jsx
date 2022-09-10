@@ -16,7 +16,11 @@ function Service() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetchData(`/api/v1/service`, setServices, setIsLoading);
+    (async () => {
+      const fetchServices = await fetchData(`/api/v1/service`);
+      setServices(fetchServices);
+      setIsLoading(false);
+    })();
   }, []);
 
   const removeService = async (id) => {

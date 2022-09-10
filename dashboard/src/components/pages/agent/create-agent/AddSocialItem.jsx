@@ -1,9 +1,9 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react';
 import Input from '../../../reusable/form/Input';
 
 function AddSocialItem({ addSocial, removeSocial, social }) {
   const [data, setData] = useState({
-    id: '',
     name: '',
     icon: '',
     url: '',
@@ -35,7 +35,7 @@ function AddSocialItem({ addSocial, removeSocial, social }) {
                     <button
                       type="button"
                       className="btn btn-danger"
-                      onClick={() => removeSocial(item.id)}
+                      onClick={() => removeSocial(item.url)}
                     >
                       <i className="fas fa-trash" />
                     </button>

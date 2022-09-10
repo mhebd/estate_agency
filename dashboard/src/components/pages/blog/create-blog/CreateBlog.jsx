@@ -1,11 +1,17 @@
 /* eslint-disable eqeqeq */
-import React, { useState } from 'react';
+import queryString from 'query-string';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import createData from '../../../../utility/createData';
+import fetchData from '../../../../utility/fetchData';
+import updateData from '../../../../utility/updateData';
 import Button from '../../../reusable/Button';
 import CardLayout from '../../../reusable/CardLayout';
 import Input from '../../../reusable/form/Input';
 import Textarea from '../../../reusable/form/Textarea';
+import Loading from '../../../reusable/Loading';
 import PageHeader from '../../../reusable/PageHeader';
+import Error from '../../not-found/Error';
 
 function CreateBlog() {
   const dataObj = {
@@ -16,6 +22,19 @@ function CreateBlog() {
   };
   const [data, setData] = useState(dataObj);
   const [coverImage, setCoverImage] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { id } = queryString.parse(useLocation().search);
+
+  useEffect(() => {
+    if (id) {
+      setIsLoading(true);
+      (async () => {
+        setData(await fetchData(`/api/v1/news/${id}`));
+        setIsLoading(false);
+      })();
+    }
+  }, [id]);
 
   const changeHandler = (e) => setData({ ...data, [e.target.name]: e.target.value });
 
@@ -24,15 +43,23 @@ function CreateBlog() {
 
     const formData = new FormData();
     formData.append('dataJson', JSON.stringify(data));
-    formData.append('coverImage', coverImage);
+    if (coverImage) formData.append('coverImage', coverImage);
 
-    if (await createData('/api/v1/news', formData)) setData(dataObj);
+    if (id) {
+      if (await updateData(`/api/v1/news/${id}`, formData)) setData(dataObj);
+    } else if (await createData('/api/v1/news', formData)) setData(dataObj);
   };
 
-  return (
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  return data === null ? (
+    <Error />
+  ) : (
     <>
       <PageHeader title="Add New Blog" btnLink="/blog" btnText="Go Back" icon="arrow-left" />
-      <CardLayout title="Create A New Blog">
+      <CardLayout title={id ? 'Update A Blog' : 'Create A New Blog'}>
         <form action="/" encType="multipart/formdata" onSubmit={submitHandler} className="form">
           <div className="mb-3">
             <Input
@@ -96,7 +123,7 @@ function CreateBlog() {
           </div>
 
           <div className="mb-3">
-            <Button type="submit">Create</Button>
+            <Button type="submit">{id ? 'Update' : 'Create'}</Button>
           </div>
         </form>
       </CardLayout>
