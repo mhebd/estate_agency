@@ -5,6 +5,7 @@ const cors = require('cors');
 const database = require('./db/database');
 const error = require('./middleware/error');
 const path = require('path');
+const url = require('url');
 
 // Routers Path
 const userRouter = require('./route/user');
@@ -23,11 +24,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/')));
 
-app.use((req, res, next) => {
-	res.header('Content-Range', 'items 0-20/20');
-	next();
-});
-
 // Add Database
 database();
 
@@ -44,11 +40,18 @@ app.use(error);
 
 //->Show UI...
 if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('client/dist'));
-
+	app.use(express.static('views'));
 	app.get('*', (req, res) => {
-		res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+		if (req.url.startsWith('/dashboard')) {
+			res.sendFile(path.resolve(__dirname, 'views', 'dashboard.html'));
+		} else {
+			res.sendFile(path.resolve(__dirname, 'views', 'index.html'));
+		}
 	});
+
+	// app.get('*', (req, res) => {
+	// 	res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+	// });
 } else if (process.env.NODE_ENV === 'development') {
 	app.get('/', (req, res) => {
 		res.send('Hello, Developer...');

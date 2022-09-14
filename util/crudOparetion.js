@@ -38,7 +38,9 @@ exports.findAll = (Model, populateOpt, sort) =>
     if (populateOpt) query = query.populate(populateOpt);
     const data = await query;
 
-    return res.status(200).json(new Result(true, '', { data }));
+    const dataCount = await Model.count();
+
+    return res.status(200).json(new Result(true, '', { data, dataCount }));
   });
 
 /**
