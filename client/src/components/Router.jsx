@@ -8,6 +8,7 @@ import Blog from './pages/blog/Blog';
 import BlogSingle from './pages/blog/blog-single/BlogSingle';
 import Contact from './pages/contact/Contact';
 import Home from './pages/home/Home';
+import NotFound from './pages/not-found/NotFound';
 import Property from './pages/property/Property';
 import PropertySingle from './pages/property/property-single/PropertySingle';
 
@@ -94,6 +95,8 @@ function Router() {
           </UserLayout>
         }
       />
+
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

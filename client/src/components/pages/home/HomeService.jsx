@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import HomeSectionHeading from '../../common/reusable/HomeSectionHeading';
+import Loading from '../../common/reusable/Loading';
 
 function HomeService() {
   const [services, setServices] = useState(null);
@@ -20,7 +21,7 @@ function HomeService() {
   }, []);
 
   if (loading) {
-    return <div className="">Loading...</div>;
+    return <Loading />;
   }
 
   return (
@@ -36,7 +37,7 @@ function HomeService() {
                   <div className="service wow zoomIn">
                     <div className="service-header d-flex mb-4">
                       <div className="service-icon">
-                        <i className="fas fa-dollar-sign" />
+                        <i className={`fas fa-${service.icon}`} />
                       </div>
                       <div className="s-heading align-self-center">
                         <h2 className="">{service?.title}</h2>

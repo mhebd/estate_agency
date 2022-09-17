@@ -45,7 +45,7 @@ if (process.env.NODE_ENV === 'production') {
 		if (req.url.startsWith('/dashboard')) {
 			res.sendFile(path.resolve(__dirname, 'views', 'dashboard.html'));
 		} else {
-			res.sendFile(path.resolve(__dirname, 'views', 'index.html'));
+			res.sendFile(path.resolve(__dirname, 'views', 'client.html'));
 		}
 	});
 

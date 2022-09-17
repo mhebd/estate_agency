@@ -15,6 +15,7 @@ import Error from '../../not-found/Error';
 function CreateService() {
   const fields = {
     title: '',
+    icon: '',
     details: '',
   };
   const [data, setData] = useState(fields);
@@ -33,7 +34,8 @@ function CreateService() {
     }
   }, [id]);
 
-  const changeHandler = (e) => setData({ ...data, [e.target.name]: e.target.value });
+  const changeHandler = (e) =>
+    setData({ ...data, [e.target.name]: e.target.value });
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -60,7 +62,7 @@ function CreateService() {
         <div className="col-md-8 mx-auto">
           <CardLayout title={id ? 'Update A Service' : 'Create A New Service'}>
             <form action="/" onSubmit={submitHandler} className="form">
-              <div className="mb-3">
+              <div className="mb-4">
                 <Input
                   type="text"
                   id="title"
@@ -72,7 +74,19 @@ function CreateService() {
                   value={data.title}
                 />
               </div>
-              <div className="mb-3">
+              <div className="mb-4">
+                <Input
+                  type="text"
+                  id="icon"
+                  name="icon"
+                  placeholder="Enter service icon"
+                  className=""
+                  label="Service Icon"
+                  changeHandler={changeHandler}
+                  value={data.icon}
+                />
+              </div>
+              <div className="mb-4">
                 <Textarea
                   value={data.details}
                   name="details"

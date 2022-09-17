@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import sliderSettings from '../../../utils/sliderSettings';
+import Loading from '../../common/reusable/Loading';
 
 function HomeSlider() {
   const settings = sliderSettings();
@@ -12,14 +13,14 @@ function HomeSlider() {
   useEffect(() => {
     setLoading(true);
     (async () => {
-      const res = await axios(`/api/v1/property`);
+      const res = await axios(`/api/v1/property?page=1&limit=4`);
       setProperties(res.data.result.data);
       setLoading(false);
     })();
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (

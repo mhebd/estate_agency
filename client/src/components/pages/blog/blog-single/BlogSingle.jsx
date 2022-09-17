@@ -1,8 +1,10 @@
+/* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../../../../assets/css/news-single.css';
+import Loading from '../../../common/reusable/Loading';
 import PageHeader from '../../../common/reusable/PageHeader';
 
 function BlogSingle() {
@@ -20,7 +22,7 @@ function BlogSingle() {
   }, [blogId]);
 
   if (loading) {
-    return <div>loading...</div>;
+    return <Loading />;
   }
 
   return (
@@ -35,9 +37,17 @@ function BlogSingle() {
                 <img src={`../${blog.coverImage}`} alt={blog.title} className="img-fluid mb-5" />
                 <div className="img-caption text-center mb-5">
                   <p>
-                    <strong>Author:</strong>
-                    <span>{blog.author}</span> <strong>Category:</strong>
-                    <span> {blog.category} </span> <strong>Date:</strong>
+                    <strong className="mr-2 ml-3">
+                      <i className="fas fa-user-edit" />
+                    </strong>
+                    <span>{blog.author}</span>{' '}
+                    <strong className="mr-2 ml-3">
+                      <i className="fas fa-list-alt" />
+                    </strong>
+                    <span> {blog.category} </span>{' '}
+                    <strong className="mr-2 ml-3">
+                      <i className="fas fa-calendar-alt" />
+                    </strong>
                     <span> {new Date(blog.created).toLocaleDateString()} </span>
                   </p>
                 </div>
@@ -48,7 +58,10 @@ function BlogSingle() {
           <div className="news-single-prg-wrapper mb-5">
             <div className="row justify-content-center">
               <div className="col-lg-10">
-                <div className="news-single-prg mb-5">{blog.content}</div>
+                <div
+                  className="news-single-prg mb-5"
+                  dangerouslySetInnerHTML={{ __html: blog.content }}
+                />
 
                 <div className="nsp-share-icon mt-5 clearfix">
                   <p className="float-left mr-4">Share:</p>
@@ -74,7 +87,7 @@ function BlogSingle() {
             </div>
           </div>
 
-          <div className="news-comment-wrapper my-5">
+          {/* <div className="news-comment-wrapper my-5">
             <div className="nc-header mb-5">
               <h2 className="heading">Comments (4)</h2>
               <div className="h-border-bottom" />
@@ -176,7 +189,7 @@ function BlogSingle() {
                 </button>
               </form>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     )

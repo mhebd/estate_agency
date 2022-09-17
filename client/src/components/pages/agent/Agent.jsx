@@ -2,81 +2,52 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import '../../../assets/css/agent-grid.css';
 import AgentCard from '../../common/reusable/AgentCard';
+import Loading from '../../common/reusable/Loading';
 import PageHeader from '../../common/reusable/PageHeader';
+import Paginate from '../../common/reusable/Paginate';
 
 function Agent() {
-	const [agents, setAgents] = useState(null);
-	const [loading, setLoading] = useState(false);
+  const itemPerPage = 6;
+  const [agents, setAgents] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [totalItem, setTotalItem] = useState(itemPerPage);
+  const [activePage, setActivePage] = useState(1);
 
-	useEffect(() => {
-		setLoading(true);
-		(async () => {
-			const res = await axios(`/api/v1/agent`);
-			setAgents(res.data.result.data);
-			setLoading(false);
-		})();
-	}, []);
+  useEffect(() => {
+    setLoading(true);
+    (async () => {
+      const res = await axios(`/api/v1/agent?page=${activePage}&limit=${itemPerPage}`);
+      setAgents(res.data.result.data);
+      setTotalItem(res.data.result.dataCount);
+      setLoading(false);
+    })();
+  }, [activePage]);
 
-	if (loading) {
-		return <div>Loading...</div>;
-	}
-	return (
-		<>
-			<div className='agents agent-grid'>
-				<div className='container'>
-					<PageHeader heading='Our Best Agents' page='agent' />
+  if (loading) {
+    return <Loading />;
+  }
+  return (
+    <>
+      <div className="agents agent-grid">
+        <div className="container">
+          <PageHeader heading="Our Best Agents" page="agent" />
 
-					<div className='agents-wrapper'>
-						<div className='row'>
-							{agents && agents.map((agent) => <AgentCard agent={agent} />)}
-						</div>
-					</div>
-				</div>
-			</div>
+          <div className="agents-wrapper">
+            <div className="row">
+              {agents && agents.map((agent) => <AgentCard agent={agent} />)}
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<div className='container'>
-				<div className='grid-pagination clearfix my-5'>
-					<ul className='pagination float-right'>
-						<li className='page-item'>
-							<a href='/' className='page-link'>
-								<i className='fas fa-angle-left' />
-							</a>
-						</li>
-						<li className='page-item'>
-							<a href='/' className='page-link'>
-								1
-							</a>
-						</li>
-						<li className='page-item'>
-							<a href='/' className='page-link'>
-								2
-							</a>
-						</li>
-						<li className='page-item'>
-							<a href='/' className='page-link'>
-								3
-							</a>
-						</li>
-						<li className='page-item'>
-							<a href='/' className='page-link'>
-								4
-							</a>
-						</li>
-						<li className='page-item'>
-							<a href='/' className='page-link'>
-								5
-							</a>
-						</li>
-						<li className='page-item'>
-							<a href='/' className='page-link'>
-								<i className='fas fa-angle-right' />
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</>
-	);
+      <Paginate
+        activePage={activePage}
+        itemPerPage={itemPerPage}
+        totalItem={totalItem}
+        onChange={setActivePage}
+      />
+    </>
+  );
 }
 
 export default Agent;

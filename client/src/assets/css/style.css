@@ -256,25 +256,23 @@ a:hover {
 }
 
 /* main carousel styling */
+#main-carousel {
+	position: relative;
+}
 .carousel-item img {
 	width: 100%;
 	height: 100vh;
 }
-.carousel-indicators {
-	bottom: 150px;
-	left: 55%;
+#main-carousel .slick-arrow {
+	position: absolute;
+	z-index: 99;
+	top: 50%;
 }
-.carousel-indicators li {
-	width: 20px;
-	height: 12px;
-	transition: width 0.3s, background-color 0.3s;
+#main-carousel .slick-prev {
+	left: 80px;
 }
-.carousel-indicators li:hover {
-	background-color: #28a745;
-}
-.carousel-indicators .active {
-	width: 35px;
-	background-color: #28a745;
+#main-carousel .slick-next {
+	right: 80px;
 }
 .carousel-caption {
 	left: 10%;
@@ -542,20 +540,29 @@ a:hover {
 /* latest news end */
 
 /* testimonials styling */
-.testimonials-slider .owl-theme .owl-nav {
+.testimonials-slider {
+	position: relative;
+}
+.testimonials-slider .slick-arrow {
 	position: absolute;
-	top: -150px;
+	top: 0;
 	right: 0;
+	z-index: 99;
+	/* background: green;
+	height: 40px; */
+	padding: 2px;
 }
-.testimonials-slider .owl-theme .owl-dots {
-	display: none;
+.testimonials-slider .slick-prev {
+	left: calc(100% - 40px);
 }
-.testimonials-slider .owl-theme .owl-nav span {
-	font-size: 3rem;
-}
-.testimonials-slider .owl-theme .owl-nav [class*='owl-']:hover {
-	background: transparent;
-	color: #000;
+.testimonials-slider .slick-arrow:before {
+	color: #28a745;
+	background: #fff;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
 }
 .testimonial svg {
 	width: 2rem !important;
@@ -578,6 +585,10 @@ a:hover {
 	font-weight: 600;
 	padding: 0.5rem;
 	line-height: 4rem;
+}
+
+.slick-dots {
+	bottom: -50px;
 }
 
 /* testimonials styling end */
@@ -650,4 +661,15 @@ a:hover {
 /* footer styling end */
 #createConv {
 	display: none;
+}
+
+/* Loading style */
+.loading-wrap {
+	position: absolute;
+	z-index: 99999;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgb(53, 126, 221);
 }

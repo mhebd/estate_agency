@@ -1,11 +1,15 @@
+/* eslint-disable no-underscore-dangle */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../../../../assets/css/agent-single.css';
+import AgentInfo from '../../../common/reusable/AgentInfo';
+import Loading from '../../../common/reusable/Loading';
 import PageHeader from '../../../common/reusable/PageHeader';
+import Properties from '../../../common/reusable/Properties';
 
 function AgentSingle() {
-  const [agent, setAgent] = useState(null);
+  const [agent, setAgent] = useState({});
   const [loading, setLoading] = useState(false);
   const { agentId } = useParams();
 
@@ -19,90 +23,22 @@ function AgentSingle() {
   }, [agentId]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   return (
-    agent && (
+    Object.keys(agent).length > 0 && (
       <div className="agent-single-section">
         <div className="container">
-          <PageHeader heading={agent.name} page="agent" title={agent.name} />
+          <PageHeader heading={agent?.name} page="agent" title={agent?.name} />
 
-          <div className="agent-information-wrapper">
-            <div className="row">
-              <div className="col-lg-6">
-                <div className="agent-img">
-                  <img src={`../${agent.avatar}`} alt={agent.name} className="img-fluid" />
-                </div>
-              </div>
+          <AgentInfo agent={agent} />
 
-              <div className="col-lg-5">
-                <div className="agent-information">
-                  <div className="agent-name mb-5">
-                    <h2 className="name">{agent.name}</h2>
-                    <div className="h-border-bottom" />
-                  </div>
-
-                  <div className="agent-prg mb-5">
-                    <p className="">{agent.biodata}</p>
-                  </div>
-
-                  <div className="agent-info-list mb-5">
-                    <ul className="list-group list-unstyled">
-                      <li className="list-item">
-                        <strong>Phone:</strong> +54 356 945234
-                      </li>
-                      <li className="list-item">
-                        <strong>Mobile:</strong> 999 123 456 789
-                      </li>
-                      <li className="list-item">
-                        <strong>Email:</strong> agents@example.com
-                      </li>
-                      <li className="list-item">
-                        <strong>Skype:</strong> Margaret.Es
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="agent-social">
-                    <ul className="nav">
-                      <li className="nav-item">
-                        <a href="/" className="nav-link">
-                          <i className="fab fa-facebook-f" />
-                        </a>
-                      </li>
-                      <li className="nav-item">
-                        <a href="/" className="nav-link">
-                          <i className="fab fa-twitter" />
-                        </a>
-                      </li>
-                      <li className="nav-item">
-                        <a href="/" className="nav-link">
-                          <i className="fab fa-instagram" />
-                        </a>
-                      </li>
-                      <li className="nav-item">
-                        <a href="/" className="nav-link">
-                          <i className="fab fa-linkedin-in" />
-                        </a>
-                      </li>
-                      <li className="nav-item">
-                        <a href="/" className="nav-link">
-                          <i className="fab fa-pinterest-p" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="agent-property-header mb-4">
-            <h2 className="heading">My Properties (6)</h2>
+          <div className="agent-property-header mb-5">
+            <h2 className="heading">My Properties</h2>
             <div className="h-border-bottom" />
           </div>
 
-          <div className="select-proerty clearfix">
+          {/* <div className="select-proerty clearfix">
             <div className="form-group float-right">
               <select name="" id="" className="form-control">
                 <option value="">All</option>
@@ -111,54 +47,9 @@ function AgentSingle() {
                 <option value="">Three</option>
               </select>
             </div>
-          </div>
+          </div> */}
 
-          <div className="grid-properties mb-5">
-            <div className="row">
-              <div className="col-md-4 mb-4">
-                <div className="single-property">
-                  <div className="card">
-                    <img src="../image/proparty-img/property-9.jpg" alt="" className="card-img" />
-
-                    <div className="property-caption">
-                      <div className="information">
-                        <h2 className="address">206 Mount Olive Road Two</h2>
-                        <h4 className="rent">RENT | $ 12,000</h4>
-                        <a href="/" className="link">
-                          Click here to view <i className="fas fa-angle-right ml-3" />
-                        </a>
-                      </div>
-
-                      <div className="extra-info">
-                        <div className="info-table">
-                          <table className="table bg-success">
-                            <thead>
-                              <tr>
-                                <th>Area</th>
-                                <th>Beds</th>
-                                <th>Baths</th>
-                                <th>Garages</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  340m<sup>2</sup>
-                                </td>
-                                <td>2</td>
-                                <td>4</td>
-                                <td>1</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Properties url={`/api/v1/property/agents-property/${agentId}`} pageHeading={false} />
         </div>
       </div>
     )
